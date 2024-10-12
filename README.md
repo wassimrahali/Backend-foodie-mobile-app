@@ -1,18 +1,18 @@
 # How to start ?
 
 1- clone the repo
-2- ``` cd Back-end-delivery-food-mobile-app ```
-3- ``` npm install ```
-4- create .env file
-5- npm run dev
+2- ``` cd Back-end-delivery-food-mobile-app ```<br/>
+3- ``` npm install ```<br/>
+4- create .env file<br/>
+5- npm run dev<br/>
 
 # Important notes
 
 ## lezem taaml .env file bch el project yekdem
 
 ## ki tbadel haja fi schema mt3 prisma lezm texecuti el commands hedhom : 
-1- ``` npx prisma migrate dev ```
-2- ``` prisma generate ```
+1- ``` npx prisma migrate dev ```<br/>
+2- ``` prisma generate ```<br/>
 
 
 ## chnya @root ?
