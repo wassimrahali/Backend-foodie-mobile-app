@@ -4,29 +4,40 @@ import helmet from "helmet"
 import cors from "cors"
 import api from "./api/index"
 import dotenv from "dotenv"
-
+import errorHandler from "./middleware/errorHandler"
+import notFound from "./middleware/notFound"
 dotenv.config()
 
 const app = express()
 
-app.use(morgan("dev"))
-app.use(helmet())
-app.use(cors())
-app.use(express.json())
+async function main() {
+    // await createConnection({
+    //     type: 'postgres',
+    //     host: 'localhost',
+    //     port: 5432,
+    //     username: 'laithharb',
+    //     password: undefined,
+    //     database: 'typeorm',
+    //     entities: [Client, Banker, Transaction],
+    //     synchronize: true,
+    // });
+    app.use(morgan("dev"))
+    app.use(helmet())
+    app.use(cors())
+    app.use(express.json())
 
-app.get("/", (req, res) => {
-    res.json({
-        message: "hello world !",
+    app.get("/", (req, res) => {
+        res.json({
+            message: "hello world !",
+        })
     })
-})
 
-app.use("/api/", api)
+    app.use("/api/", api)
 
-// middlewares
-import errorHandler from "./middleware/errorHandler"
-app.use(errorHandler)
+    // middlewares
+    app.use(errorHandler)
 
-import notFound from "./middleware/notFound"
-app.use(notFound)
-
+    app.use(notFound)
+}
+main()
 export default app
