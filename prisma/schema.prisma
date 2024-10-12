@@ -14,7 +14,6 @@ model Admin {
   name  String? @default("")
   password  String
   createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
 }
 
 model Customer {
@@ -24,7 +23,6 @@ model Customer {
   location String 
   password  String
   createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
   orders Order[]
 
 }
@@ -36,7 +34,6 @@ model DileveryMan{
   password  String
   salary DateTime?
   createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
   orders Order[]
 }
 
@@ -45,7 +42,6 @@ model Category {
   name String
   image String
   createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
   products Product[] 
 }
 
@@ -59,11 +55,11 @@ model Product {
   preparationDuration String //exmaples : 1 hour , 20 min ...
   rating Decimal @default(5)
   createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
   sizes Json @default("[]") //array of strings
   categoryId Int       
   category Category  @relation(fields: [categoryId], references: [id])
   orderItems OrderItem[]
+  
 }
 
 enum Status {
@@ -84,6 +80,8 @@ model Order {
   customer Customer  @relation(fields: [customerId], references: [id])
   deliveryManId Int
   deliveryMan DileveryMan  @relation(fields: [deliveryManId], references: [id])
+    createdAt DateTime   @default(now())
+
 }
 
 model OrderItem {
@@ -95,5 +93,6 @@ model OrderItem {
 
   orderId Int
   order Order  @relation(fields: [orderId], references: [id])
+  createdAt DateTime   @default(now())
 
 }

@@ -1,3 +1,4 @@
+import "module-alias/register"
 import express from "express"
 import morgan from "morgan"
 import helmet from "helmet"
@@ -11,25 +12,13 @@ dotenv.config()
 const app = express()
 
 async function main() {
-    // await createConnection({
-    //     type: 'postgres',
-    //     host: 'localhost',
-    //     port: 5432,
-    //     username: 'laithharb',
-    //     password: undefined,
-    //     database: 'typeorm',
-    //     entities: [Client, Banker, Transaction],
-    //     synchronize: true,
-    // });
     app.use(morgan("dev"))
     app.use(helmet())
     app.use(cors())
     app.use(express.json())
 
     app.get("/", (req, res) => {
-        res.json({
-            message: "hello world !",
-        })
+        res.send("nothing here try /api/products")
     })
 
     app.use("/api/", api)
