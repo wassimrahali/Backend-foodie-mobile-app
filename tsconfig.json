@@ -8,7 +8,10 @@
         "forceConsistentCasingInFileNames": true,
         "noImplicitAny": false,
         "strict": false,
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "paths": {
+            "@root/*": ["./*"]
+        }
     },
     "include": ["./*.js", "src/**/*.ts", "test/**/*.ts"]
 }

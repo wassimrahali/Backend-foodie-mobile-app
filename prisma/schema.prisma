@@ -1,0 +1,98 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id    Int     @id @default(autoincrement())
+  phone String  @unique
+  name  String? @default("")
+  password  String
+  createdAt DateTime   @default(now())
+}
+
+model Customer {
+  id    Int     @id @default(autoincrement())
+  phone String  @unique
+  name  String? @default("")
+  location String 
+  password  String
+  createdAt DateTime   @default(now())
+  orders Order[]
+
+}
+
+model DileveryMan{
+  id    Int     @id @default(autoincrement())
+  phone String  @unique
+  name  String?  @default("")
+  password  String
+  salary DateTime?
+  createdAt DateTime   @default(now())
+  orders Order[]
+}
+
+model Category {
+  id    Int     @id @default(autoincrement())
+  name String
+  image String
+  createdAt DateTime   @default(now())
+  products Product[] 
+}
+
+model Product {
+  id    Int     @id @default(autoincrement())
+  name String
+  mainImage String
+  price Decimal
+  otherImages Json @default("[]") //array of strings
+  description String @default("")
+  preparationDuration String //exmaples : 1 hour , 20 min ...
+  rating Decimal @default(5)
+  createdAt DateTime   @default(now())
+  sizes Json @default("[]") //array of strings
+  categoryId Int       
+  category Category  @relation(fields: [categoryId], references: [id])
+  orderItems OrderItem[]
+  
+}
+
+enum Status {
+  NOT_VALIDATED
+  VALIDATED
+  READY
+  ON_ROAD
+  DELIVERED
+  RETURNED
+}
+
+model Order {
+  id Int @id @default(autoincrement())
+  totalPrice Decimal
+  status Status  @default(NOT_VALIDATED) 
+  orderItems OrderItem[]
+  customerId Int
+  customer Customer  @relation(fields: [customerId], references: [id])
+  deliveryManId Int
+  deliveryMan DileveryMan  @relation(fields: [deliveryManId], references: [id])
+    createdAt DateTime   @default(now())
+
+}
+
+model OrderItem {
+  id Int @id @default(autoincrement())
+  quantity Int
+
+  productId Int
+  product Product  @relation(fields: [productId], references: [id])
+
+  orderId Int
+  order Order  @relation(fields: [orderId], references: [id])
+  createdAt DateTime   @default(now())
+
+}
