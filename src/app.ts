@@ -5,8 +5,8 @@ import helmet from "helmet"
 import cors from "cors"
 import api from "./api/index"
 import dotenv from "dotenv"
-import errorHandler from "./middleware/errorHandler"
-import notFound from "./middleware/notFound"
+import errorHandler from "./api/middleware/errorHandler"
+import notFound from "./api/middleware/notFound"
 dotenv.config()
 
 const app = express()
