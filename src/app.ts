@@ -7,6 +7,7 @@ import api from "./api/index"
 import dotenv from "dotenv"
 import errorHandler from "./api/middleware/errorHandler"
 import notFound from "./api/middleware/notFound"
+import { swaggerSpec, swaggerUi } from "./swagger"
 dotenv.config()
 
 const app = express()
@@ -20,7 +21,7 @@ async function main() {
     app.get("/", (req, res) => {
         res.send("nothing here try /api/products")
     })
-
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
     app.use("/api/", api)
 
     // middlewares

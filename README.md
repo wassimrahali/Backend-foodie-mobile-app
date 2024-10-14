@@ -7,7 +7,7 @@
 
 ## ki tbadel haja fi schema mt3 prisma lezm texecuti el commands hedhom : 
 1- ``` npx prisma migrate dev ```<br/>
-2- ``` prisma generate ```<br/>
+2- ``` npx prisma generate ```<br/>
 
 ## chnya @root ?
 ki tal9a import tebda b @root no9sdou biha el root folder mt3 el project , par example 3ana dossier esmou prisma fil project ki nheb naa3ml import mn haja fi westou naaml
