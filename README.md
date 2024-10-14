@@ -12,7 +12,7 @@
 
 ## ki tbadel haja fi schema mt3 prisma lezm texecuti el commands hedhom : 
 1- ``` npx prisma migrate dev ```<br/>
-2- ``` prisma generate ```<br/>
+2- ``` npx prisma generate ```<br/>
 
 
 ## chnya @root ?

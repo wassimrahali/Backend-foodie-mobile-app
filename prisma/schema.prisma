@@ -10,7 +10,7 @@ datasource db {
 
 model Admin {
   id    Int     @id @default(autoincrement())
-  phone String  @unique
+  email String  @unique
   name  String? @default("")
   password  String
   createdAt DateTime   @default(now())
@@ -19,12 +19,11 @@ model Admin {
 model Customer {
   id    Int     @id @default(autoincrement())
   phone String  @unique
+  email String?
   name  String? @default("")
-  location String 
   password  String
   createdAt DateTime   @default(now())
   orders Order[]
-
 }
 
 model DileveryMan{
@@ -32,7 +31,7 @@ model DileveryMan{
   phone String  @unique
   name  String?  @default("")
   password  String
-  salary DateTime?
+  salary Decimal?
   createdAt DateTime   @default(now())
   orders Order[]
 }
@@ -52,7 +51,7 @@ model Product {
   price Decimal
   otherImages Json @default("[]") //array of strings
   description String @default("")
-  preparationDuration String //exmaples : 1 hour , 20 min ...
+  preparationDuration String?//exmaples : 1 hour , 20 min ...
   rating Decimal @default(5)
   createdAt DateTime   @default(now())
   sizes Json @default("[]") //array of strings
@@ -75,12 +74,13 @@ model Order {
   id Int @id @default(autoincrement())
   totalPrice Decimal
   status Status  @default(NOT_VALIDATED) 
+  location String
   orderItems OrderItem[]
   customerId Int
   customer Customer  @relation(fields: [customerId], references: [id])
   deliveryManId Int
   deliveryMan DileveryMan  @relation(fields: [deliveryManId], references: [id])
-    createdAt DateTime   @default(now())
+  createdAt DateTime   @default(now())
 
 }
 
