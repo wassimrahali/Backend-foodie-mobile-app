@@ -10,6 +10,7 @@ import notFound from "./api/middleware/notFound"
 import { swaggerSpec, swaggerUi } from "./swagger"
 import { v2 as cloudinary } from "cloudinary"
 import multer from "multer"
+require("express-async-errors")
 
 dotenv.config()
 
@@ -42,7 +43,7 @@ async function main() {
             })
         }
     })
-    app.get("/", (req, res) => {
+    app.get("/", async (req, res) => {
         res.redirect("/api-docs")
     })
 
