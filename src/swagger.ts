@@ -1,7 +1,6 @@
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
-// Définition des options pour Swagger
 const options: swaggerJSDoc.Options = {
   definition: {
     openapi: '3.0.1',
@@ -16,7 +15,7 @@ const options: swaggerJSDoc.Options = {
     servers: [
       {
         url: 'http://localhost:8000/api',
-        description: 'backend url',
+        description: 'Backend URL',
       },
     ],
     paths: {
@@ -39,7 +38,7 @@ const options: swaggerJSDoc.Options = {
           },
         },
       },
-      "/auth/registerDileveryMan": {
+      "/auth/registerDeliveryMan": {
         post: {
           tags: ['auth'],
           summary: 'Register a new delivery man',
@@ -48,7 +47,7 @@ const options: swaggerJSDoc.Options = {
             content: {
               'application/json': {
                 schema: {
-                  $ref: '#/components/schemas/DileveryMan',
+                  $ref: '#/components/schemas/DeliveryMan',
                 },
               },
             },
@@ -104,7 +103,7 @@ const options: swaggerJSDoc.Options = {
           },
         },
       },
-      "/auth/loginDileveryMan": {
+      "/auth/loginDeliveryMan": {
         post: {
           tags: ['auth'],
           summary: 'Login a delivery man',
@@ -127,27 +126,48 @@ const options: swaggerJSDoc.Options = {
           },
         },
       },
-      //"/auth/{id}": {
-      //   delete: {
-      //     tags: ['auth'],
-      //     summary: 'Delete a customer by ID',
-      //     parameters: [
-      //       {
-      //         name: 'id',
-      //         in: 'path',
-      //         required: true,
-      //         schema: {
-      //           type: 'integer',
-      //           format: 'int32',
-      //         },
-      //       },
-      //     ],
-      //     responses: {
-      //       '200': { description: 'Customer deleted successfully' },
-      //       '404': { description: 'Customer not found' },
-      //     },
-      //   },
-      // },
+      "/auth/customers": {
+        get: {
+          tags: ['customers'],
+          summary: 'Get all customers',
+          responses: {
+            '200': {
+              description: 'List of all customers',
+              content: {
+                'application/json': {
+                  schema: {
+                    type: 'array',
+                    items: {
+                      $ref: '#/components/schemas/Customer',
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      "/auth/customer/{id}": {
+        get: {
+          tags: ['customers'],
+          summary: 'Get a customer by ID',
+          parameters: [
+            {
+              name: 'id',
+              in: 'path',
+              required: true,
+              schema: {
+                type: 'integer',
+                format: 'int32',
+              },
+            },
+          ],
+          responses: {
+            '200': { description: 'Customer found' },
+            '404': { description: 'Customer not found' },
+          },
+        },
+      },
       "/products": {
         get: {
           tags: ['products'],
@@ -272,172 +292,100 @@ const options: swaggerJSDoc.Options = {
         Customer: {
           type: 'object',
           properties: {
-            name: {
-              type: 'string',
-              default: 'string',
-            },
-            email: {
-              type: 'string',
-              default: 'string',
-            },
-            phone: {
-              type: 'string',
-              default: 'string',
-            },
-            password: {
-              type: 'string',
-              default: 'string',
-            },
+            name: { type: 'string', default: 'string' },
+            email: { type: 'string', default: 'string' },
+            phone: { type: 'string', default: 'string' },
+            password: { type: 'string', default: 'string' },
           },
         },
-        DileveryMan: {
+        DeliveryMan: {
           type: 'object',
           properties: {
-            name: {
-              type: 'string',
-              default: 'string',
-            },
-            phone: {
-              type: 'string',
-              default: 'string',
-            },
-            password: {
-              type: 'string',
-              default: 'string',
-            },
-            salary: {
-              type: 'number',
-              format: 'decimal',
-            },
+            name: { type: 'string', default: 'string' },
+            phone: { type: 'string', default: 'string' },
+            password: { type: 'string', default: 'string' },
+            salary: { type: 'number', format: 'decimal' },
           },
         },
         Admin: {
           type: 'object',
           properties: {
-            name: {
-              type: 'string',
-              default: 'string',
-            },
-            email: {
-              type: 'string',
-              default: 'string',
-            },
-            password: {
-              type: 'string',
-              default: 'string',
-            },
+            name: { type: 'string', default: 'string' },
+            email: { type: 'string', default: 'string' },
+            password: { type: 'string', default: 'string' },
           },
         },
         Category: {
           type: 'object',
           properties: {
-            name: {
-              type: 'string',
-            },
-            image: {
-              type: 'string',
-            },
+            name: { type: 'string' },
+            image: { type: 'string' },
           },
         },
         Product: {
           type: 'object',
           properties: {
-            name: {
-              type: 'string',
-            },
-            mainImage: {
-              type: 'string',
-            },
-            price: {
-              type: 'number',
-              format: 'decimal',
-            },
+            name: { type: 'string' },
+            mainImage: { type: 'string' },
+            price: { type: 'number', format: 'decimal' },
             otherImages: {
               type: 'array',
-              items: {
-                type: 'string',
-              },
+              items: { type: 'string' },
               default: [],
             },
-            description: {
-              type: 'string',
-              default: '',
-            },
-            preparationDuration: {
-              type: 'string',
-              default: '20 min',
-            },
-            rating: {
-              type: 'number',
-              format: 'decimal',
-              default: 5,
-            },
+            description: { type: 'string', default: '' },
+            preparationDuration: { type: 'string', default: '20 min' },
+            rating: { type: 'number', format: 'decimal', default: 5 },
             sizes: {
               type: 'array',
-              items: {
-                type: 'string',
-              },
+              items: { type: 'string' },
               default: [],
             },
-            categoryId: {
-              type: 'integer',
-              format: 'int32',
-            },
+            categoryId: { type: 'integer', format: 'int32' },
           },
         },
         Order: {
           type: 'object',
           properties: {
-            totalPrice: {
-              type: 'number',
-              format: 'decimal',
-            },
+            totalPrice: { type: 'number', format: 'decimal' },
             status: {
               type: 'string',
-              enum: ['NOT_VALIDATED', 'VALIDATED', 'READY', 'ON_ROAD', 'DELIVERED', 'RETURNED'],
+              enum: [
+                'NOT_VALIDATED',
+                'VALIDATED',
+                'READY',
+                'ON_ROAD',
+                'DELIVERED',
+                'RETURNED',
+              ],
               default: 'NOT_VALIDATED',
             },
-            location: {
-              type: 'string',
-            },
-            customerId: {
-              type: 'integer',
-              format: 'int32',
-            },
-            deliveryManId: {
-              type: 'integer',
-              format: 'int32',
-            },
+            location: { type: 'string' },
+            customerId: { type: 'integer', format: 'int32' },
+            deliveryManId: { type: 'integer', format: 'int32' },
           },
         },
         OrderItem: {
           type: 'object',
           properties: {
-            quantity: {
-              type: 'integer',
-            },
-            productId: {
-              type: 'integer',
-              format: 'int32',
-            },
-            orderId: {
-              type: 'integer',
-              format: 'int32',
-            },
+            quantity: { type: 'integer' },
+            productId: { type: 'integer', format: 'int32' },
+            orderId: { type: 'integer', format: 'int32' },
           },
         },
       },
     },
     tags: [
       { name: 'auth', description: 'Authentication and user-related operations' },
+      { name: 'customers', description: 'Customers related operations' },
       { name: 'products', description: 'Products related operations' },
       { name: 'categories', description: 'Categories related operations' },
     ],
   },
-  apis: ['./src/routes/*.ts'],
+  apis: ['./src/routes/*.ts'], // Update this if your files are compiled into JavaScript
 };
 
-// Initialisation de Swagger
+// Initialize Swagger
 const swaggerSpec = swaggerJSDoc(options);
 
 export { swaggerUi, swaggerSpec };
