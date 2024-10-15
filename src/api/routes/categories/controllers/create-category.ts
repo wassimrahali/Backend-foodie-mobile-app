@@ -31,7 +31,7 @@ export async function createCategory(req: Request, res: Response) {
     }
 }
 
-// Zod schema for product validation
+// Zod schema for category validation
 const CategorySchema = z.object({
     name: z.string(),
     image: z.string(),
