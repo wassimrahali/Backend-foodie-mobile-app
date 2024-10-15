@@ -8,6 +8,6 @@ categoriesRouter.get("/categories", getAllCategories)
 
 categoriesRouter.get("/categories/:id", getOneCategory)
 
-categoriesRouter.post("/categories/", createCategory)
+categoriesRouter.post("/categories", createCategory)
 
 export default categoriesRouter
