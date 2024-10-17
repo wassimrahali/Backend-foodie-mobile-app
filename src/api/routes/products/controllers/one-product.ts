@@ -11,6 +11,9 @@ export async function getOneProduct(req: Request, res: Response) {
             where: {
                 id,
             },
+            include: {
+                category: true,
+            },
         })
         return product
             ? res.send(product)
