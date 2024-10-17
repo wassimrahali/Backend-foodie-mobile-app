@@ -522,8 +522,7 @@ const options: swaggerJSDoc.Options = {
         Customer: {
           type: 'object',
           properties: {
-            firstname: { type: 'string' },
-            lastname: { type: 'string' },
+            name: { type: 'string' },
             email: { type: 'string' },
             password: { type: 'string' },
             phone: { type: 'string' },
