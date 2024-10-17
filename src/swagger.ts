@@ -167,20 +167,67 @@ const options: swaggerJSDoc.Options = {
             '404': { description: 'Customer not found' },
           },
         },
+        put: {
+          tags: ['customers'],
+          summary: 'Update a customer',
+          parameters: [
+            {
+              name: 'id',
+              in: 'path',
+              required: true,
+              schema: {
+                type: 'integer',
+                format: 'int32',
+              },
+            },
+          ],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: {
+                  $ref: '#/components/schemas/Customer',
+                },
+              },
+            },
+          },
+          responses: {
+            '200': { description: 'Customer updated successfully' },
+          },
+        },
+        delete: {
+          tags: ['customers'],
+          summary: 'Delete a customer',
+          parameters: [
+            {
+              name: 'id',
+              in: 'path',
+              required: true,
+              schema: {
+                type: 'integer',
+                format: 'int32',
+              },
+            },
+          ],
+          responses: {
+            '200': { description: 'Customer deleted successfully' },
+            '404': { description: 'Customer not found' },
+          },
+        },
       },
-      "/products": {
+      "/auth/DileveryMan": {
         get: {
-          tags: ['products'],
-          summary: 'Get all products',
+          tags: ['DeliveryMans'],
+          summary: 'Get all DeliveryMans',
           responses: {
             '200': {
-              description: 'List of all products',
+              description: 'List of all DeliveryMans',
               content: {
                 'application/json': {
                   schema: {
                     type: 'array',
                     items: {
-                      $ref: '#/components/schemas/Product',
+                      $ref: '#/components/schemas/DeliveryMan',
                     },
                   },
                 },
@@ -188,24 +235,113 @@ const options: swaggerJSDoc.Options = {
             },
           },
         },
-        post: {
-          tags: ['products'],
-          summary: 'Create a new product',
+      },
+      "/auth/DileveryMan/{id}": {
+        get: {
+          tags: ['DeliveryMans'],
+          summary: 'Get a DeliveryMan by ID',
+          parameters: [
+            {
+              name: 'id',
+              in: 'path',
+              required: true,
+              schema: {
+                type: 'integer',
+                format: 'int32',
+              },
+            },
+          ],
+          responses: {
+            '200': { description: 'DeliveryMan found' },
+            '404': { description: 'DeliveryMan not found' },
+          },
+        },
+        put: {
+          tags: ['DeliveryMans'],
+          summary: 'Update a DeliveryMan',
+          parameters: [
+            {
+              name: 'id',
+              in: 'path',
+              required: true,
+              schema: {
+                type: 'integer',
+                format: 'int32',
+              },
+            },
+          ],
           requestBody: {
             required: true,
             content: {
               'application/json': {
                 schema: {
-                  $ref: '#/components/schemas/Product',
+                  $ref: '#/components/schemas/DeliveryMan',
                 },
               },
             },
           },
           responses: {
-            '200': { description: 'Product created successfully' },
+            '200': { description: 'DeliveryMan updated successfully' },
+          },
+        },
+        delete: {
+          tags: ['DeliveryMans'],
+          summary: 'Delete a DeliveryMan',
+          parameters: [
+            {
+              name: 'id',
+              in: 'path',
+              required: true,
+              schema: {
+                type: 'integer',
+                format: 'int32',
+              },
+            },
+          ],
+          responses: {
+            '200': { description: 'DeliveryMan deleted successfully' },
+            '404': { description: 'DeliveryMan not found' },
           },
         },
       },
+     "/products": { 
+      get: {
+        tags: ['products'],
+        summary: 'Get all products',
+        responses: {
+          '200': {
+            description: 'List of all products',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'array',
+                  items: {
+                    $ref: '#/components/schemas/Product',
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      post: {
+        tags: ['products'],
+        summary: 'Create a new product',
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                $ref: '#/components/schemas/Product',
+              },
+            },
+          },
+        },
+        responses: {
+          '200': { description: 'Product created successfully' },
+        },
+      },
+    },
       "/products/{id}": {
         get: {
           tags: ['products'],
@@ -223,6 +359,53 @@ const options: swaggerJSDoc.Options = {
           ],
           responses: {
             '200': { description: 'Product found' },
+            '404': { description: 'Product not found' },
+          },
+        },
+        put: {
+          tags: ['products'],
+          summary: 'Update a product',
+          parameters: [
+            {
+              name: 'id',
+              in: 'path',
+              required: true,
+              schema: {
+                type: 'integer',
+                format: 'int32',
+              },
+            },
+          ],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: {
+                  $ref: '#/components/schemas/Product',
+                },
+              },
+            },
+          },
+          responses: {
+            '200': { description: 'Product updated successfully' },
+          },
+        },
+        delete: {
+          tags: ['products'],
+          summary: 'Delete a product',
+          parameters: [
+            {
+              name: 'id',
+              in: 'path',
+              required: true,
+              schema: {
+                type: 'integer',
+                format: 'int32',
+              },
+            },
+          ],
+          responses: {
+            '200': { description: 'Product deleted successfully' },
             '404': { description: 'Product not found' },
           },
         },
@@ -285,54 +468,73 @@ const options: swaggerJSDoc.Options = {
             '404': { description: 'Category not found' },
           },
         },
+        put: {
+          tags: ['categories'],
+          summary: 'Update a category',
+          parameters: [
+            {
+              name: 'id',
+              in: 'path',
+              required: true,
+              schema: {
+                type: 'integer',
+                format: 'int32',
+              },
+            },
+          ],
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: {
+                  $ref: '#/components/schemas/Category',
+                },
+              },
+            },
+          },
+          responses: {
+            '200': { description: 'Category updated successfully' },
+          },
+        },
+        delete: {
+          tags: ['categories'],
+          summary: 'Delete a category',
+          parameters: [
+            {
+              name: 'id',
+              in: 'path',
+              required: true,
+              schema: {
+                type: 'integer',
+                format: 'int32',
+              },
+            },
+          ],
+          responses: {
+            '200': { description: 'Category deleted successfully' },
+            '404': { description: 'Category not found' },
+          },
+        },
       },
     },
-    "/upload": {
-      post: {
-          tags: ["image-upload"],
-          summary: "upload an image and get its url",
-          parameters: [{}],
-          responses: {
-              "200": { description: "image uploaded" },
-              "500": {
-                  description: "error while uploading the image",
-              },
-          },
-      },
-  },
     components: {
       schemas: {
         Customer: {
           type: 'object',
           properties: {
-            name: { type: 'string', default: 'string' },
-            email: { type: 'string', default: 'string' },
-            phone: { type: 'string', default: 'string' },
-            password: { type: 'string', default: 'string' },
+            name: { type: 'string' },
+            email: { type: 'string' },
+            password: { type: 'string' },
+            phone: { type: 'string' },
           },
         },
         DeliveryMan: {
           type: 'object',
           properties: {
-            name: { type: 'string', default: 'string' },
-            phone: { type: 'string', default: 'string' },
-            password: { type: 'string', default: 'string' },
-            salary: { type: 'number', format: 'decimal' },
-          },
-        },
-        Admin: {
-          type: 'object',
-          properties: {
-            name: { type: 'string', default: 'string' },
-            email: { type: 'string', default: 'string' },
-            password: { type: 'string', default: 'string' },
-          },
-        },
-        Category: {
-          type: 'object',
-          properties: {
-            name: { type: 'string' },
-            image: { type: 'string' },
+            firstname: { type: 'string' },
+            lastname: { type: 'string' },
+            phone: { type: 'string' },
+            password: { type: 'string' },
           },
         },
         Product: {
@@ -341,64 +543,25 @@ const options: swaggerJSDoc.Options = {
             name: { type: 'string' },
             mainImage: { type: 'string' },
             price: { type: 'number', format: 'decimal' },
-            otherImages: {
-              type: 'array',
-              items: { type: 'string' },
-              default: [],
-            },
-            description: { type: 'string', default: '' },
-            preparationDuration: { type: 'string', default: '20 min' },
-            rating: { type: 'number', format: 'decimal', default: 5 },
-            sizes: {
-              type: 'array',
-              items: { type: 'string' },
-              default: [],
-            },
-            categoryId: { type: 'integer', format: 'int32' },
+            otherImages: { type: 'array', items: { type: 'string' } },
+            description: { type: 'string' },
+            preparationDuration: { type: 'integer' },
+            rating: { type: 'number', format: 'decimal' },
+            sizes: { type: 'array', items: { type: 'string' } },
           },
         },
-        Order: {
+        Category: {
           type: 'object',
           properties: {
-            totalPrice: { type: 'number', format: 'decimal' },
-            status: {
-              type: 'string',
-              enum: [
-                'NOT_VALIDATED',
-                'VALIDATED',
-                'READY',
-                'ON_ROAD',
-                'DELIVERED',
-                'RETURNED',
-              ],
-              default: 'NOT_VALIDATED',
-            },
-            location: { type: 'string' },
-            customerId: { type: 'integer', format: 'int32' },
-            deliveryManId: { type: 'integer', format: 'int32' },
-          },
-        },
-        OrderItem: {
-          type: 'object',
-          properties: {
-            quantity: { type: 'integer' },
-            productId: { type: 'integer', format: 'int32' },
-            orderId: { type: 'integer', format: 'int32' },
+            name: { type: 'string' },
           },
         },
       },
     },
-    tags: [
-      { name: 'auth', description: 'Authentication and user-related operations' },
-      { name: 'customers', description: 'Customers related operations' },
-      { name: 'products', description: 'Products related operations' },
-      { name: 'categories', description: 'Categories related operations' },
-    ],
   },
-  apis: ['./src/routes/*.ts'], // Update this if your files are compiled into JavaScript
+  apis: ['./routes/*.ts'],
 };
 
-// Initialize Swagger
 const swaggerSpec = swaggerJSDoc(options);
 
 export { swaggerUi, swaggerSpec };

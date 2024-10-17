@@ -6,15 +6,27 @@ import { registerDileveryMan } from "./DileveryMan/controllers/register"
 import { loginDileveryMan } from "./DileveryMan/controllers/login"
 import { getAllcustomers } from "./customer/controllers/all-customer"
 import { getOneCustomer } from "./customer/controllers/one-customer"
+import { getAllDileveryMans } from "./DileveryMan/controllers/all-DileveryMans"
+import { getOneDileveryMan } from "./DileveryMan/controllers/one-DileveryMan"
+import { updateCustomer } from "./customer/controllers/update-cutomer"
+import { deleteCustomer } from "./customer/controllers/delete-customer"
+import { updateDeliveryMan } from "./DileveryMan/controllers/update-DileveryMan"
+import { deleteDeliveryMan } from "./DileveryMan/controllers/delete-DileveryMan"
 
 
-const customerRouter = express.Router()
+const UsersRouter = express.Router()
 
-customerRouter.post("/auth/register", registerCustomer)
-customerRouter.post("/auth/registerDileveryMan", registerDileveryMan)
-customerRouter.post("/auth/login",loginCustomer)
-customerRouter.post("/auth/loginAdmin",loginadmin)
-customerRouter.post("/auth/loginDileveryMan",loginDileveryMan)
-customerRouter.get("/auth/customers",getAllcustomers)
-customerRouter.get("/auth/customer/:id",getOneCustomer)
-export default customerRouter
+UsersRouter.post("/auth/register", registerCustomer)
+UsersRouter.post("/auth/registerDileveryMan", registerDileveryMan)
+UsersRouter.post("/auth/login",loginCustomer)
+UsersRouter.post("/auth/loginAdmin",loginadmin)
+UsersRouter.post("/auth/loginDileveryMan",loginDileveryMan)
+UsersRouter.get("/auth/customers",getAllcustomers)
+UsersRouter.get("/auth/customer/:id",getOneCustomer)
+UsersRouter.put("/auth/customer/:id",updateCustomer)
+UsersRouter.delete("/auth/customer/:id",deleteCustomer)
+UsersRouter.get("/auth/DileveryMan",getAllDileveryMans)
+UsersRouter.get("/auth/DileveryMan/:id",getOneDileveryMan)
+UsersRouter.put("/auth/DileveryMan/:id",updateDeliveryMan)
+UsersRouter.delete("/auth/DileveryMan/:id",deleteDeliveryMan)
+export default UsersRouter
