@@ -6,7 +6,7 @@ const productsRouter = express.Router()
 
 productsRouter.get("/products", getAllProducts)
 
-productsRouter.get("/product/:id", getOneProduct)
+productsRouter.get("/products/:id", getOneProduct)
 
 productsRouter.post("/products/", createProduct)
 

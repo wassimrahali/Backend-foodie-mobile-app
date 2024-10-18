@@ -11,6 +11,9 @@ export async function getOneCategory(req: Request, res: Response) {
             where: {
                 id,
             },
+            include: {
+                products: true,
+            },
         })
         return category
             ? res.send(category)
