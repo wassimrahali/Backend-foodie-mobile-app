@@ -14,6 +14,7 @@ export async function createProduct(req: Request, res: Response) {
             preparationDuration,
             price,
             rating,
+            sizes,
         } = ProductSchema.parse(req.body)
 
         const product = await prisma.product.create({
@@ -21,6 +22,7 @@ export async function createProduct(req: Request, res: Response) {
                 categoryId,
                 description,
                 mainImage,
+                sizes,
                 name,
                 otherImages,
                 preparationDuration,
