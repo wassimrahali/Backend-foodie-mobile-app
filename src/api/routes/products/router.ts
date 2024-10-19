@@ -3,7 +3,7 @@ import { getAllProducts } from "./controllers/all-products"
 import { getOneProduct } from "./controllers/one-product"
 import { createProduct } from "./controllers/create-product"
 import { deleteProduct } from "./controllers/delete-product"
-import { updateProduct } from "./controllers/updateProduct"
+import { updateProduct } from "./controllers/update-product"
 const productsRouter = express.Router()
 
 productsRouter.get("/products", getAllProducts)
