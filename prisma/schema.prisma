@@ -17,11 +17,13 @@ model Admin {
 }
 
 model Customer {
-  id    Int     @id @default(autoincrement())
-  phone String  @unique
-  email String?
-  name  String? @default("")
-  password  String
+ id                Int      @id @default(autoincrement())
+  phone             String  @unique
+  name              String?
+  email             String   @unique
+  password          String
+  resetCode         String?
+  resetCodeExpiry   DateTime?
   createdAt DateTime   @default(now())
   orders Order[]
 }
