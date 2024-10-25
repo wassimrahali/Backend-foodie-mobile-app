@@ -14,6 +14,7 @@ import { updateDeliveryMan } from "./DileveryMan/controllers/update-DileveryMan"
 import { deleteDeliveryMan } from "./DileveryMan/controllers/delete-DileveryMan"
 import { sendEmail } from "./customer/controllers/forgotPassword"
 import { resetPassword } from "./customer/controllers/resetPassword"
+import { changePassword} from "./customer/controllers/update-password"
 const UsersRouter = express.Router()
 
 UsersRouter.post("/auth/register", registerCustomer)
@@ -33,4 +34,5 @@ UsersRouter.delete("/auth/DileveryMan/:id",deleteDeliveryMan)
 
 UsersRouter.post("/auth/sendVerificationCode",sendEmail)
 UsersRouter.post("/auth/resetPassword",resetPassword)
+UsersRouter.post("/auth/updatePasswordByEmail",changePassword)
 export default UsersRouter
