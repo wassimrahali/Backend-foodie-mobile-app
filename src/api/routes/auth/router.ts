@@ -12,8 +12,8 @@ import { updateCustomer } from "./customer/controllers/update-cutomer"
 import { deleteCustomer } from "./customer/controllers/delete-customer"
 import { updateDeliveryMan } from "./DileveryMan/controllers/update-DileveryMan"
 import { deleteDeliveryMan } from "./DileveryMan/controllers/delete-DileveryMan"
-
-
+import { sendEmail } from "./customer/controllers/forgotPassword"
+import { resetPassword } from "./customer/controllers/resetPassword"
 const UsersRouter = express.Router()
 
 UsersRouter.post("/auth/register", registerCustomer)
@@ -29,4 +29,8 @@ UsersRouter.get("/auth/DileveryMan",getAllDileveryMans)
 UsersRouter.get("/auth/DileveryMan/:id",getOneDileveryMan)
 UsersRouter.put("/auth/DileveryMan/:id",updateDeliveryMan)
 UsersRouter.delete("/auth/DileveryMan/:id",deleteDeliveryMan)
+
+
+UsersRouter.post("/auth/sendVerificationCode",sendEmail)
+UsersRouter.post("/auth/resetPassword",resetPassword)
 export default UsersRouter
