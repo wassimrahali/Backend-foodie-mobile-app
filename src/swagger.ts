@@ -215,7 +215,7 @@ const options: swaggerJSDoc.Options = {
           },
         },
       },
-      "/auth/DileveryMan": {
+      "/auth/DeliveryMan": {
         get: {
           tags: ['DeliveryMans'],
           summary: 'Get all DeliveryMans',
@@ -236,7 +236,7 @@ const options: swaggerJSDoc.Options = {
           },
         },
       },
-      "/auth/DileveryMan/{id}": {
+      "/auth/DeliveryMan/{id}": {
         get: {
           tags: ['DeliveryMans'],
           summary: 'Get a DeliveryMan by ID',
@@ -304,44 +304,44 @@ const options: swaggerJSDoc.Options = {
           },
         },
       },
-     "/products": { 
-      get: {
-        tags: ['products'],
-        summary: 'Get all products',
-        responses: {
-          '200': {
-            description: 'List of all products',
-            content: {
-              'application/json': {
-                schema: {
-                  type: 'array',
-                  items: {
-                    $ref: '#/components/schemas/Product',
+      "/products": { 
+        get: {
+          tags: ['products'],
+          summary: 'Get all products',
+          responses: {
+            '200': {
+              description: 'List of all products',
+              content: {
+                'application/json': {
+                  schema: {
+                    type: 'array',
+                    items: {
+                      $ref: '#/components/schemas/Product',
+                    },
                   },
                 },
               },
             },
           },
         },
-      },
-      post: {
-        tags: ['products'],
-        summary: 'Create a new product',
-        requestBody: {
-          required: true,
-          content: {
-            'application/json': {
-              schema: {
-                $ref: '#/components/schemas/Product',
+        post: {
+          tags: ['products'],
+          summary: 'Create a new product',
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: {
+                  $ref: '#/components/schemas/Product',
+                },
               },
             },
           },
-        },
-        responses: {
-          '200': { description: 'Product created successfully' },
+          responses: {
+            '201': { description: 'Product created successfully' },
+          },
         },
       },
-    },
       "/products/{id}": {
         get: {
           tags: ['products'],
@@ -405,7 +405,7 @@ const options: swaggerJSDoc.Options = {
             },
           ],
           responses: {
-            '200': { description: 'Product deleted successfully' },
+            '204': { description: 'Product deleted successfully' },
             '404': { description: 'Product not found' },
           },
         },
@@ -430,28 +430,49 @@ const options: swaggerJSDoc.Options = {
             },
           },
         },
+      },
+      "/orders": {
+        get: {
+          tags: ['orders'],
+          summary: 'Get all orders',
+          responses: {
+            '200': {
+              description: 'List of all orders',
+              content: {
+                'application/json': {
+                  schema: {
+                    type: 'array',
+                    items: {
+                      $ref: '#/components/schemas/Order',
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
         post: {
-          tags: ['categories'],
-          summary: 'Create a new category',
+          tags: ['orders'],
+          summary: 'Create a new order',
           requestBody: {
             required: true,
             content: {
               'application/json': {
                 schema: {
-                  $ref: '#/components/schemas/Category',
+                  $ref: '#/components/schemas/Order',
                 },
               },
             },
           },
           responses: {
-            '200': { description: 'Category created successfully' },
+            '201': { description: 'Order created successfully' },
           },
         },
       },
-      "/categories/{id}": {
+      "/orders/{id}": {
         get: {
-          tags: ['categories'],
-          summary: 'Get a category by ID',
+          tags: ['orders'],
+          summary: 'Get an order by ID',
           parameters: [
             {
               name: 'id',
@@ -464,13 +485,13 @@ const options: swaggerJSDoc.Options = {
             },
           ],
           responses: {
-            '200': { description: 'Category found' },
-            '404': { description: 'Category not found' },
+            '200': { description: 'Order found' },
+            '404': { description: 'Order not found' },
           },
         },
         put: {
-          tags: ['categories'],
-          summary: 'Update a category',
+          tags: ['orders'],
+          summary: 'Update an order',
           parameters: [
             {
               name: 'id',
@@ -487,18 +508,18 @@ const options: swaggerJSDoc.Options = {
             content: {
               'application/json': {
                 schema: {
-                  $ref: '#/components/schemas/Category',
+                  $ref: '#/components/schemas/Order',
                 },
               },
             },
           },
           responses: {
-            '200': { description: 'Category updated successfully' },
+            '200': { description: 'Order updated successfully' },
           },
         },
         delete: {
-          tags: ['categories'],
-          summary: 'Delete a category',
+          tags: ['orders'],
+          summary: 'Delete an order',
           parameters: [
             {
               name: 'id',
@@ -511,8 +532,8 @@ const options: swaggerJSDoc.Options = {
             },
           ],
           responses: {
-            '200': { description: 'Category deleted successfully' },
-            '404': { description: 'Category not found' },
+            '204': { description: 'Order deleted successfully' },
+            '404': { description: 'Order not found' },
           },
         },
       },
@@ -554,6 +575,26 @@ const options: swaggerJSDoc.Options = {
           type: 'object',
           properties: {
             name: { type: 'string' },
+          },
+        },
+        Order: {
+          type: 'object',
+          properties: {
+            totalPrice: { type: 'number', format: 'decimal' },
+            status: { type: 'string' },
+            location: { type: 'string' },
+            customerId: { type: 'integer' },
+            deliveryManId: { type: 'integer' },
+            orderItems: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  quantity: { type: 'integer' },
+                  productId: { type: 'integer' },
+                },
+              },
+            },
           },
         },
       },
