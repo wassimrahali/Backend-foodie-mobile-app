@@ -58,7 +58,7 @@ model Product {
   createdAt DateTime   @default(now())
   sizes Json @default("[]") //array of strings
   categoryId Int       
-  category Category  @relation(fields: [categoryId], references: [id])
+  category Category  @relation(fields: [categoryId], references: [id] , onDelete: Cascade)
   orderItems OrderItem[]
   
 }
