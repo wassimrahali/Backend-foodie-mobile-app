@@ -7,11 +7,12 @@
         "@root": "."
     },
     "scripts": {
-        "start": "ts-node src/index.ts",
+        "start": "node dist/index.js",
         "dev": "nodemon src/index.ts",
         "build": "tsc",
+        "vercel-build": "prisma generate && tsc",
         "start:dist": "node dist/src/index.js",
-        "typecheck": "tsc --noEmit",  
+        "typecheck": "tsc --noEmit",
         "format:check": "prettier --check .",
         "format:write": "prettier --write .",
         "lint:check": "eslint .",
