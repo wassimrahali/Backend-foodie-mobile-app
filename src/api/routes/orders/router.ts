@@ -6,6 +6,7 @@ import { getOrderById } from "./controllers/one-order"
 import { updateOrder } from "./controllers/update-order"
 import { getLocation } from "./controllers/getLocation"
 import { getOrderUserId } from "./controllers/getOrderUserId"
+import { updateOrderStatus } from "./controllers/update-order-status"
 
 const orderRouter = express.Router()
 
@@ -18,5 +19,6 @@ orderRouter.delete("/orders/:id", deleteOrder)
 orderRouter.get("/orders/customer/:customerId", getOrderUserId); 
 
 
+orderRouter.patch("/orders/update-status/:id", updateOrderStatus)
 
 export default orderRouter

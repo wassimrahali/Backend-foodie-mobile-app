@@ -4,6 +4,9 @@ import { prisma } from "@root/prisma/prisma"
 export async function getAllOrders(req: Request, res: Response) {
     try {
         const orders = await prisma.order.findMany({
+            orderBy: {
+                createdAt: "desc",
+            },
             include: {
                 customer: true,
                 deliveryMan: true,
