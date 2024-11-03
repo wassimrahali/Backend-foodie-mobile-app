@@ -58,10 +58,10 @@ async function main() {
         res.send('He66d!');
     });
 
-    // middlewares
-    app.use(errorHandler)
+    // // middlewares
+    // app.use(errorHandler)
 
-    app.use(notFound)
+    // app.use(notFound)
 }
 main()
 export default app
