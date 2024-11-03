@@ -1,66 +1,59 @@
-import "module-alias/register";
-import express from "express";
-import morgan from "morgan";
-import helmet from "helmet";
-import cors from "cors";
-import api from "./api/index";
-import dotenv from "dotenv";
-import errorHandler from "./api/middleware/errorHandler";
-import notFound from "./api/middleware/notFound";
-import { swaggerSpec, swaggerUi } from "./swagger";
-import { v2 as cloudinary } from "cloudinary";
-import multer from "multer";
-require("express-async-errors");
+import "module-alias/register"
+import express from "express"
+import morgan from "morgan"
+import helmet from "helmet"
+import cors from "cors"
+import api from "./api/index"
+import dotenv from "dotenv"
+import errorHandler from "./api/middleware/errorHandler"
+import notFound from "./api/middleware/notFound"
+import { swaggerSpec, swaggerUi } from "./swagger"
+import { v2 as cloudinary } from "cloudinary"
+import multer from "multer"
+require("express-async-errors")
 
-dotenv.config();
+dotenv.config()
 
-const app = express();
+const app = express()
 
 // Configure Cloudinary
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+})
 
 // Configure Multer
-const upload = multer({ dest: "public/" });
+const upload = multer({ dest: "public/" })
 
-// Middleware setup
-app.use(morgan("dev"));
-app.use(helmet());
-app.use(cors());
-app.use(express.json());
+async function main() {
+    app.use(morgan("dev"))
+    app.use(helmet())
+    app.use(cors())
+    app.use(express.json())
 
-// Define routes
-app.get("/", (req, res) => {
-    res.send("Hello World!");
-});
+    app.post("/api/upload", upload.single("image"), async (req: any, res) => {
+        try {
+            const result = await cloudinary.uploader.upload(req?.file?.path)
+            res.json(result)
+        } catch (error) {
+            console.error(error)
+            res.status(500).json({
+                error: "An error occurred during the upload",
+            })
+        }
+    })
+    app.get("/", async (req, res) => {
+        res.redirect("/api-docs")
+    })
 
-app.get("/ez", (req, res) => {
-    res.send("He66d!");
-});
+    app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+    app.use("/api/", api)
 
-app.post("/api/upload", upload.single("image"), async (req: any, res) => {
-    try {
-        const result = await cloudinary.uploader.upload(req.file.path);
-        res.json(result);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            error: "An error occurred during the upload",
-        });
-    }
-});
+    // middlewares
+    app.use(errorHandler)
 
-// Swagger documentation setup
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
-// API routes
-app.use("/api/", api);
-
-// Middlewares for error handling
-app.use(notFound);
-app.use(errorHandler);
-
-export default app;
+    app.use(notFound)
+}
+main()
+export default app
