@@ -47,8 +47,16 @@ async function main() {
         res.redirect("/api-docs")
     })
 
-    app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+    // app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec))
     app.use("/api/", api)
+
+    app.get('/', (req, res) => {
+        res.send('Hello World!');
+    });
+
+    app.get('/ez', (req, res) => {
+        res.send('He66d!');
+    });
 
     // middlewares
     app.use(errorHandler)
