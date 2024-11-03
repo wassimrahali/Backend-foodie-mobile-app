@@ -11,7 +11,7 @@
         "dev": "nodemon src/index.ts",
         "build": "tsc",
         "start:dist": "node dist/src/index.js",
-        "typecheck": "tsc --noEmit",
+        "typecheck": "tsc --noEmit",  
         "format:check": "prettier --check .",
         "format:write": "prettier --write .",
         "lint:check": "eslint .",
