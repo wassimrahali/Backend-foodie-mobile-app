@@ -405,7 +405,7 @@ const options: swaggerJSDoc.Options = {
             },
           ],
           responses: {
-            '204': { description: 'Product deleted successfully' },
+            '200': { description: 'Product deleted successfully' },
             '404': { description: 'Product not found' },
           },
         },
@@ -428,6 +428,23 @@ const options: swaggerJSDoc.Options = {
                 },
               },
             },
+          },
+        },
+        post: {
+          tags: ['categories'],
+          summary: 'Create a new category',
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: {
+                  $ref: '#/components/schemas/Category',
+                },
+              },
+            },
+          },
+          responses: {
+            '201': { description: 'Category created successfully' },
           },
         },
       },
@@ -466,6 +483,44 @@ const options: swaggerJSDoc.Options = {
           },
           responses: {
             '201': { description: 'Order created successfully' },
+          },
+        },
+      },
+      "/orders/customer/{customerId}": {
+        get: {
+          tags: ['orders'],
+          summary: 'Get all orders by customer ID',
+          parameters: [
+            {
+              name: 'customerId',
+              in: 'path',
+              required: true,
+              schema: {
+                type: 'integer',
+                format: 'int32',
+              },
+            },
+          ],
+          responses: {
+            '200': {
+              description: 'Orders retrieved successfully',
+              content: {
+                'application/json': {
+                  schema: {
+                    type: 'array',
+                    items: {
+                      $ref: '#/components/schemas/Order',
+                    },
+                  },
+                },
+              },
+            },
+            '404': {
+              description: 'No orders found for this customer',
+            },
+            '500': {
+              description: 'Internal server error',
+            },
           },
         },
       },
@@ -532,7 +587,7 @@ const options: swaggerJSDoc.Options = {
             },
           ],
           responses: {
-            '204': { description: 'Order deleted successfully' },
+            '200': { description: 'Order deleted successfully' },
             '404': { description: 'Order not found' },
           },
         },
