@@ -7,7 +7,7 @@
         "@root": "."
     },
     "scripts": {
-        "start": "node dist/index.js",
+        "start": "nodemon src/index.ts",
         "dev": "nodemon src/index.ts",
         "build": "tsc",
         "vercel-build": "prisma generate && tsc",
