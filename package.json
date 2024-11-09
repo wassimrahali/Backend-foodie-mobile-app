@@ -9,7 +9,7 @@
     "scripts": {
         "start": "node dist/index.js",
         "dev": "nodemon src/index.ts",
-        "build": "tsc",
+        "build": "npm install --omit=dev && npm run compile",
         "vercel-build": "prisma generate && tsc",
         "start:dist": "node dist/src/index.js",
         "typecheck": "tsc --noEmit",
