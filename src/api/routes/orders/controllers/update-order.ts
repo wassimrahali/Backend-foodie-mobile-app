@@ -1,3 +1,5 @@
+import { prisma } from "@root/prisma/prisma"
+import { Request, Response } from "express"
 export async function updateOrder(req: Request, res: Response) {
     try {
         const { id } = req.params;
