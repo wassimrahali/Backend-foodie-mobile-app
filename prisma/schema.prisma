@@ -80,8 +80,8 @@ model Order {
   orderItems OrderItem[]
   customerId Int
   customer Customer  @relation(fields: [customerId], references: [id])
-  deliveryManId Int
-  deliveryMan DileveryMan  @relation(fields: [deliveryManId], references: [id])
+  deliveryManId Int?
+  deliveryMan DileveryMan?  @relation(fields: [deliveryManId], references: [id])
   createdAt DateTime   @default(now())
 
 }
