@@ -1,6 +1,3 @@
-import { prisma } from "@root/prisma/prisma"
-import { Request, Response } from "express"
-
 export async function updateOrder(req: Request, res: Response) {
     try {
         const { id } = req.params;
@@ -12,15 +9,17 @@ export async function updateOrder(req: Request, res: Response) {
                 totalPrice,
                 status,
                 location,
-                customer: { connect: { id: customerId } },
-                deliveryMan: { connect: { id: deliveryManId } },
-                orderItems: {
-                    deleteMany: {}, // Clears existing order items for replacement
-                    create: orderItems.map((item: any) => ({
-                        quantity: item.quantity,
-                        product: { connect: { id: item.productId } },
-                    })),
-                },
+                customer: customerId ? { connect: { id: customerId } } : undefined,
+                deliveryMan: deliveryManId ? { connect: { id: deliveryManId } } : undefined,
+                orderItems: orderItems?.length > 0
+                    ? {
+                        deleteMany: {}, // Clears existing order items for replacement
+                        create: orderItems.map((item: any) => ({
+                            quantity: item.quantity,
+                            product: { connect: { id: item.productId } },
+                        })),
+                    }
+                    : undefined,
             },
             include: { orderItems: true, customer: true, deliveryMan: true },
         });
@@ -29,4 +28,3 @@ export async function updateOrder(req: Request, res: Response) {
         res.status(500).json({ error: error.message });
     }
 }
-
