@@ -34,9 +34,11 @@ async function main() {
 
     app.post("/api/upload", upload.single("image"), async (req: any, res) => {
         try {
+            console.log("uplodaing image....")
             const result = await cloudinary.uploader.upload(req?.file?.path)
             res.json(result)
         } catch (error) {
+            console.log("image was not uploaded")
             console.error(error)
             res.status(500).json({
                 error: "An error occurred during the upload",
