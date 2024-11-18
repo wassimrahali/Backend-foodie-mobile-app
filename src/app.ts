@@ -10,6 +10,7 @@ import notFound from "./api/middleware/notFound"
 import { swaggerSpec, swaggerUi } from "./swagger"
 import { v2 as cloudinary } from "cloudinary"
 import multer from "multer"
+import multiparty from "multiparty"
 require("express-async-errors")
 
 dotenv.config()
@@ -23,27 +24,46 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
 })
 
-// Configure Multer
-const upload = multer({ dest: "public/" })
-
 async function main() {
     app.use(morgan("dev"))
     app.use(helmet())
     app.use(cors())
     app.use(express.json())
 
-    app.post("/api/upload", upload.single("image"), async (req: any, res) => {
-        try {
-            console.log("uplodaing image....")
-            const result = await cloudinary.uploader.upload(req?.file?.path)
-            res.json(result)
-        } catch (error) {
-            console.log("image was not uploaded")
-            console.error(error)
-            res.status(500).json({
-                error: "An error occurred during the upload",
-            })
-        }
+    app.post("/api/upload", async (req, res) => {
+        const form = new multiparty.Form()
+
+        form.parse(req, async (err, fields, files) => {
+            if (err) {
+                console.error("Error parsing form data:", err)
+                return res
+                    .status(500)
+                    .json({ error: "Error parsing form data" })
+            }
+
+            try {
+                console.log("Uploading image...")
+
+                // Access the uploaded file (files.image corresponds to the 'image' field in form-data)
+                const file = files.image?.[0] // Get the first file if there are multiple
+                if (!file) {
+                    return res.status(400).json({ error: "No file uploaded" })
+                }
+
+                // Upload the file to Cloudinary
+                const result = await cloudinary.uploader.upload(file.path, {
+                    folder: "your-folder-name", // Optional: Specify a folder in Cloudinary
+                })
+
+                console.log("Image uploaded successfully:", result)
+                res.json(result)
+            } catch (error) {
+                console.error("Image upload failed:", error)
+                res.status(500).json({
+                    error: "An error occurred during the upload",
+                })
+            }
+        })
     })
     app.get("/", async (req, res) => {
         res.redirect("/api-docs")
