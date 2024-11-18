@@ -44,24 +44,19 @@ async function main() {
             try {
                 console.log("Uploading image...")
 
-                // Access the uploaded file (files.image corresponds to the 'image' field in form-data)
-                const file = files.image?.[0] // Get the first file if there are multiple
+                const file = files.image?.[0]
                 if (!file) {
                     return res.status(400).json({ error: "No file uploaded" })
                 }
 
                 // Upload the file to Cloudinary
-                const result = await cloudinary.uploader.upload(file.path, {
-                    folder: "your-folder-name", // Optional: Specify a folder in Cloudinary
-                })
+                const result = await cloudinary.uploader.upload(file.path)
 
                 console.log("Image uploaded successfully:", result)
                 res.json(result)
             } catch (error) {
                 console.error("Image upload failed:", error)
-                res.status(500).json({
-                    error: "An error occurred during the upload",
-                })
+                res.status(500).send(error)
             }
         })
     })
