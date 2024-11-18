@@ -64,12 +64,12 @@ model Product {
 }
 
 enum Status {
-  NOT_VALIDATED
-  VALIDATED
-  READY
-  ON_ROAD
-  DELIVERED
-  RETURNED
+  PENDING // en attend
+  NOT_VALIDATED // refusé
+  VALIDATED // validé
+  ON_ROAD // en route
+  DELIVERED // livré
+  RETURNED // annulé
 }
 
 model Order {
