@@ -38,3 +38,9 @@ export async function signOut(req: Request, res: Response) {
         res.status(500).json({ error: "Internal server error" });
     }
 }
+exports.signout = (req, res) => {
+    res.clearCookie("token");
+    res.json({
+        message: "User has signed out"
+    });
+};
