@@ -19,9 +19,8 @@ export async function loginCustomer(req: Request, res: Response) {
         if (!isPasswordValid) {
             return res.status(400).json({ error: "Phone number or password is incorrect" });
         }
-        const token = jwt.sign({ id: customer.id }, process.env.JWT_SECRET || "secretKey", {
-            expiresIn: "1h",
-        });
+
+        const token = jwt.sign({ id: customer.id }, process.env.JWT_SECRET || "secretKey");
 
         res.status(200).json({ token });
     } catch (error) {
@@ -39,6 +38,7 @@ export async function loginCustomer(req: Request, res: Response) {
         }
     }
 }
+
 const LoginSchema = z.object({
     phone: z.string().min(1, "Phone number is required"),
     password: z.string().min(6, "Password must be at least 6 characters long"),
