@@ -10,7 +10,7 @@ export async function signOut(req: Request, res: Response) {
             return res.status(400).json({ error: "No token provided" });
         }
 
-        const decoded: any = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded: any = jwt.verify(token, process.env.JWT_SECRET || "secretKey");
 
         const user = await prisma.customer.findUnique({
             where: { id: decoded.id }
