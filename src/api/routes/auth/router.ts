@@ -16,6 +16,7 @@ import { sendEmail } from "./customer/controllers/forgotPassword"
 import { resetPassword } from "./customer/controllers/resetPassword"
 import { changePassword} from "./customer/controllers/update-password"
 import { signOut } from "./customer/controllers/LogoutCustomer"
+import { signOutDileveryMan } from "./DileveryMan/controllers/signOutDileveryMan"
 const UsersRouter = express.Router()
 
 UsersRouter.post("/auth/register", registerCustomer)
@@ -33,6 +34,7 @@ UsersRouter.get("/auth/DileveryMan",getAllDileveryMans)
 UsersRouter.get("/auth/DileveryMan/:id",getOneDileveryMan)
 UsersRouter.put("/auth/DileveryMan/:id",updateDeliveryMan)
 UsersRouter.delete("/auth/DileveryMan/:id",deleteDeliveryMan)
+UsersRouter.post("/auth/signout-DileveryMan",signOutDileveryMan)
 
 
 UsersRouter.post("/auth/sendVerificationCode",sendEmail)
