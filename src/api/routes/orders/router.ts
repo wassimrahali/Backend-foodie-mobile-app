@@ -8,7 +8,7 @@ import { getLocation } from "./controllers/getLocation";
 import { getOrderUserId } from "./controllers/getOrderUserId";
 import { updateOrderStatus } from "./controllers/update-order-status";
 import { getOrdersByStatus } from "./controllers/get-order-by-status";
-
+import { getOrdersByDeliveryManId } from "./controllers/get-ordre-By-deliveryManId";
 const orderRouter = express.Router();
 
 orderRouter.get("/orders", getAllOrders);
@@ -20,4 +20,5 @@ orderRouter.delete("/orders/:id", deleteOrder);
 orderRouter.get("/orders/customer/:customerId", getOrderUserId);
 orderRouter.patch("/orders/update-status/:id", updateOrderStatus);
 orderRouter.get("/orders/status/:status", getOrdersByStatus); 
+orderRouter.get("/orders/status/:status", getOrdersByDeliveryManId);
 export default orderRouter;
