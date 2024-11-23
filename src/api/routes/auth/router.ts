@@ -17,6 +17,7 @@ import { resetPassword } from "./customer/controllers/resetPassword"
 import { changePassword} from "./customer/controllers/update-password"
 import { signOut } from "./customer/controllers/LogoutCustomer"
 import { signOutDileveryMan } from "./DileveryMan/controllers/signOutDileveryMan"
+import { getOrdersCount, getOrdersSummary } from './DileveryMan/controllers/statics-DeliveryMan';
 const UsersRouter = express.Router()
 
 UsersRouter.post("/auth/register", registerCustomer)
@@ -40,4 +41,7 @@ UsersRouter.post("/auth/signout-DileveryMan",signOutDileveryMan)
 UsersRouter.post("/auth/sendVerificationCode",sendEmail)
 UsersRouter.post("/auth/resetPassword",resetPassword)
 UsersRouter.post("/auth/updatePasswordByEmail",changePassword)
+
+UsersRouter.get('/orders-count/:id', getOrdersCount);
+UsersRouter.get('/orders-summary/:id', getOrdersSummary);
 export default UsersRouter
