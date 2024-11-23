@@ -13,18 +13,22 @@ export const getOrdersByDeliveryManId = async (req: Request, res: Response) => {
   try {
     const orders = await prisma.order.findMany({
       where: {
-        deliveryManId: parseInt(deliveryManId), // Assurez-vous que deliveryManId est un entier
+        deliveryManId: parseInt(deliveryManId, 10), // Ensure it's parsed as an integer
       },
       include: {
-        customer: true, // Inclut les détails du client
-        deliveryMan: true, // Inclut les détails du livreur
+        customer: true,
+        deliveryMan: true,
         orderItems: {
           include: {
-            product: true, // Inclut les détails des produits dans les items de commande
+            product: true,
           },
         },
       },
     });
+
+    if (orders.length === 0) {
+      return res.status(404).json({ message: "No orders found for this delivery man" });
+    }
 
     res.json(orders);
   } catch (error) {
