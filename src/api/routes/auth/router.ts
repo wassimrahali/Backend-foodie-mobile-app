@@ -42,6 +42,6 @@ UsersRouter.post("/auth/sendVerificationCode",sendEmail)
 UsersRouter.post("/auth/resetPassword",resetPassword)
 UsersRouter.post("/auth/updatePasswordByEmail",changePassword)
 
-UsersRouter.get('/:id/orders-count', getOrdersCount);
-UsersRouter.get('/:id/orders-summary', getOrdersSummary);
+UsersRouter.get('/orders-count/:id', getOrdersCount);
+UsersRouter.get('/orders-summary/:id', getOrdersSummary);
 export default UsersRouter
