@@ -20,5 +20,5 @@ orderRouter.delete("/orders/:id", deleteOrder);
 orderRouter.get("/orders/customer/:customerId", getOrderUserId);
 orderRouter.patch("/orders/update-status/:id", updateOrderStatus);
 orderRouter.get("/orders/status/:status", getOrdersByStatus); 
-orderRouter.get("/orders/status/:status", getOrdersByDeliveryManId);
+orderRouter.get("/orders/deliveryMan/:deliveryManId", getOrdersByDeliveryManId);
 export default orderRouter;
