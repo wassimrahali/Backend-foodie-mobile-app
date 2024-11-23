@@ -6,29 +6,27 @@ const prisma = new PrismaClient();
 export const getOrdersByDeliveryManId = async (req: Request, res: Response) => {
   const { deliveryManId } = req.params;
 
+  // Vérifier si deliveryManId est valide
   if (!deliveryManId) {
     return res.status(400).json({ error: "DeliveryMan ID is required" });
   }
 
   try {
+    // Récupérer les commandes pour le livreur spécifique
     const orders = await prisma.order.findMany({
       where: {
-        deliveryManId: parseInt(deliveryManId, 10), // Ensure it's parsed as an integer
+        deliveryManId: parseInt(deliveryManId), // Assurez-vous que deliveryManId est un entier
       },
       include: {
-        customer: true,
-        deliveryMan: true,
+        customer: true, // Inclut les détails du client
+        deliveryMan: true, // Inclut les détails du livreur
         orderItems: {
           include: {
-            product: true,
+            product: true, // Inclut les détails des produits dans les items de commande
           },
         },
       },
     });
-
-    if (orders.length === 0) {
-      return res.status(404).json({ message: "No orders found for this delivery man" });
-    }
 
     res.json(orders);
   } catch (error) {
