@@ -14,8 +14,6 @@ export async function getOrderUserId(req: Request, res: Response) {
                 },
             },
         });
-
-       
         res.status(200).json(orders);
     } catch (error) {
         res.status(500).json({ error: error.message });
