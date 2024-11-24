@@ -1,9 +1,9 @@
-import { Request, Response } from "express"
-import { prisma } from "@root/prisma/prisma"
+import { Request, Response } from "express";
+import { prisma } from "@root/prisma/prisma";
 
 export async function getOrderUserId(req: Request, res: Response) {
     try {
-        const { customerId } = req.params
+        const { customerId } = req.params;
         const orders = await prisma.order.findMany({
             where: { customerId: parseInt(customerId) },
             include: {
@@ -13,12 +13,9 @@ export async function getOrderUserId(req: Request, res: Response) {
                     },
                 },
             },
-        })
-        if (!orders.length) {
-            return res.status(404).json({ error: "No orders found for this customer" })
-        }
-        res.json(orders)
+        });
+        res.status(200).json(orders);
     } catch (error) {
-        res.status(500).json({ error: error.message })
+        res.status(500).json({ error: error.message });
     }
 }
